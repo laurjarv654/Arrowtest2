@@ -13,6 +13,7 @@ namespace Arrowtest2
 {
     public partial class Form1 : Form
     {
+        #region global variables
         //arrow variables
         int X, Y, arrowSpace, SIZE = 75, SPEED = 8;
         string arrowNum, space = "1";
@@ -29,6 +30,7 @@ namespace Arrowtest2
 
         //key press booleans
         Boolean upDown, downDown, rightDown, leftDown, enterDown;
+        #endregion
 
         public Form1()
         {
@@ -85,34 +87,37 @@ namespace Arrowtest2
         {
             #region arrow movement
             //move each arrow
-            for (int i = 0; i<=arrows.Count()-1; i++)
+            for (int i = 0; i<arrows.Count(); i++)
             {
-                for (int j = 0; j<= arrows[i].Count()-1; j++)
+                for (int j = 0; j<arrows[i].Count(); j++)
                 {
                     arrows[i][j].y -= SPEED;
-                    //arrowRec[i][j] = new Rectangle(arrows[i][j].x, arrows[i][j].y, SIZE, SIZE);
-
+                   
                 }
             }
 
             //updating the rectangles
-            for (int i = 0; i <= arrows.Count() - 1; i++)
+            for (int i = 0; i <arrows.Count(); i++)
             {
                 arrowRec[i].Clear();
-                
-                foreach (Arrow a in arrows[i])
+
+                for (int j = 0; j<arrows[i].Count(); j++)
                 {
-                    Rectangle tempRec = new Rectangle(a.x, a.y, SIZE, SIZE);
+                    Rectangle tempRec = new Rectangle(arrows[i][j].x, arrows[i][j].y, SIZE, SIZE);
                     arrowRec[i].Add(tempRec);
                 }
                 
             }
 
-            //check if there's anything in arrows list first and if 
-            //if (arrows.Any()&&arrows[0][0].y < 0)
-            //{
-            //    arrows.RemoveAt(0);
-            //}
+            //removes arrows that go off the screen 
+            for (int i = 0; i<arrows.Count();i++)
+            {
+                if (arrows[i].Count() > 0 && arrows[i][0].y < 0)
+                {
+                    arrows[i].RemoveAt(0);
+                }
+            }
+            
 
 
             #endregion
@@ -126,39 +131,38 @@ namespace Arrowtest2
         {
 
             #region drawing grey arrows
-           foreach (Arrow a in greyArrows)
+           for (int i = 0; i< greyArrows.Count(); i++)
             {
-                e.Graphics.DrawImage(a.getImage(), a.x, a.y, SIZE, SIZE);       
+                e.Graphics.DrawImage(greyArrows[i].getImage(), greyArrows[i].x, greyArrows[i].y, SIZE, SIZE);       
             }
             #endregion
 
             #region drawing regular arrows
-            for (int i = 0; i <= arrows.Count() - 1; i++)
+            for (int i = 0; i < arrows.Count(); i++)
             {
-                foreach (Arrow a in arrows[i])
+                for (int j = 0; j<arrows[i].Count(); j++)
                 {
                     //drawing the arrows
-                    e.Graphics.DrawImage(a.getImage(), a.x, a.y - (SIZE * 2), SIZE, SIZE);
+                    e.Graphics.DrawImage(arrows[i][j].getImage(), arrows[i][j].x, arrows[i][j].y - (SIZE * 2), SIZE, SIZE);
                 }
             }
             #endregion
 
             //drawing rectangles for testing
             Pen pen = new Pen(Color.Red);
-            foreach(List<Rectangle> l in arrowRec)
+            for(int i = 0; i<arrowRec.Count();i++)
             {
-                foreach (Rectangle r in l)
+                for (int j = 0; j<arrowRec[i].Count(); j++)
                 {
-                    e.Graphics.DrawRectangle(pen, r);
+                    e.Graphics.DrawRectangle(pen, arrowRec[i][j]);
                 }
             }
 
-            foreach (Rectangle r in greyRec)
+            for (int i = 0; i<greyRec.Count(); i++)
             {
-                e.Graphics.DrawRectangle(pen, r);
+                e.Graphics.DrawRectangle(pen, greyRec[i]);
             }
         }
-
 
         public void ArrowInitialization()
         {
@@ -216,9 +220,9 @@ namespace Arrowtest2
             greyArrows.Add(new Arrow(X + 300, 10, SIZE, Properties.Resources.arrow3G));
 
             //setting up the grey arrow rectangles
-            foreach (Arrow a in greyArrows)
+            for (int i = 0; i<greyArrows.Count(); i++)
             {
-                greyRec.Add(new Rectangle(a.x, a.y, SIZE, SIZE));
+                greyRec.Add(new Rectangle(greyArrows[i].x, greyArrows[i].y, SIZE, SIZE));
             }
             #endregion
         }
@@ -227,13 +231,14 @@ namespace Arrowtest2
         {
             if (leftDown == true)
             {
-                for (int i = 0; i<=arrows[0].Count()-1; i++)
+                for (int i = 0; i<arrows[0].Count(); i++)
                 {
                     if (arrowRec[0][i].IntersectsWith(greyRec[0])&&counter>=15)
                     {
                         //alter image to lighter version
                         gainedPoints += 100;
                         arrows[0][i].setImage(Properties.Resources.arrow0W);
+                        arrows[0].RemoveAt(i);
                         counter = 0;
                     }
                     else if (counter >= 15)
@@ -246,12 +251,13 @@ namespace Arrowtest2
             }
             if (upDown == true)
             {
-                for (int i = 0; i <= arrows[1].Count() - 1; i++)
+                for (int i = 0; i<arrows[1].Count(); i++)
                 {
                     if (arrowRec[1][i].IntersectsWith(greyRec[1])&&counter>=15)
                     {
                         gainedPoints += 100;
                         arrows[1][i].setImage(Properties.Resources.arrow1W);
+                        arrows[1].RemoveAt(i);
                         counter = 0;
                     }
                     else if (counter >= 15)
@@ -263,12 +269,13 @@ namespace Arrowtest2
             }
             if (downDown == true)
             {
-                for (int i = 0; i<= arrows[2].Count()-1; i++)
+                for (int i = 0; i<arrows[2].Count(); i++)
                 {
                     if (arrowRec[2][i].IntersectsWith(greyRec[2])&&counter>=15)
                     {
                         gainedPoints += 100;
                         arrows[2][i].setImage(Properties.Resources.arrow2W);
+                        arrows[2].RemoveAt(i);
                         counter = 0;
                     }
                     else if (counter >= 15)
@@ -280,12 +287,13 @@ namespace Arrowtest2
             }
             if (rightDown == true)
             {
-                for (int i = 0; i<=arrows[3].Count()-1; i++)
+                for (int i = 0; i<arrows[3].Count(); i++)
                 {
                     if (arrowRec[3][i].IntersectsWith(greyRec[3])&&counter>=15)
                     {
                         gainedPoints += 100;
                         arrows[3][i].setImage(Properties.Resources.arrow3W);
+                        arrows[3].RemoveAt(i);
                         counter = 0;
                     }
                     else if (counter >= 15)
@@ -296,7 +304,8 @@ namespace Arrowtest2
                 }
             }
             counter++;
-            testLabel.Text = Convert.ToString(gainedPoints);
+            //shows points for testing purposes
+            testLabel.Text = "G:"+Convert.ToString(gainedPoints)+"       L:"+Convert.ToString(lifePoints);
         }
 
     }
