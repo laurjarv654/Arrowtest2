@@ -12,14 +12,13 @@ namespace Arrowtest2
 {
     class Arrow
     {
-        public int x, y, size, arrowNum;
+        public int x, y, arrowNum;
         Image image;
 
-        public Arrow(int _x, int _y, int _size, int _arrowNum, Image _image)
+        public Arrow(int _x, int _y, int _arrowNum, Image _image)
         {
             x = _x;
             y = _y;
-            size = _size;
             arrowNum = _arrowNum;
             image = _image;
         }
@@ -27,6 +26,11 @@ namespace Arrowtest2
        public Image getImage()
         {
             return image;
+        }
+
+        public void setImage(Image newImage)
+        {
+            image = newImage;
         }
     }
 }

@@ -185,15 +185,23 @@ namespace Arrowtest2.Properties {
         ///&lt;arrows&gt;
         ///  &lt;arrow&gt;
         ///    &lt;number&gt;0&lt;/number&gt;
+        ///    &lt;space&gt;6&lt;/space&gt;
         ///  &lt;/arrow&gt;
         ///  &lt;arrow&gt;
         ///    &lt;number&gt;1&lt;/number&gt;
+        ///    &lt;space&gt;100&lt;/space&gt;
         ///  &lt;/arrow&gt;
         ///  &lt;arrow&gt;
         ///    &lt;number&gt;2&lt;/number&gt;
+        ///    &lt;space&gt;200&lt;/space&gt;
         ///  &lt;/arrow&gt;
         ///  &lt;arrow&gt;
         ///    &lt;number&gt;3&lt;/number&gt;
+        ///    &lt;space&gt;300&lt;/space&gt;
+        ///  &lt;/arrow&gt;
+        ///  &lt;arrow&gt;
+        ///    &lt;number&gt;1&lt;/number&gt;
+        ///    &lt;space&gt;400&lt;/space&gt;
         ///  &lt;/arrow&gt;
         ///&lt;/arrows&gt;
         ///.
