@@ -112,7 +112,7 @@ namespace Arrowtest2
             //removes arrows that go off the screen 
             for (int i = 0; i<arrows.Count();i++)
             {
-                if (arrows[i].Count() > 0 && arrows[i][0].y < 0)
+                if (arrows[i].Count() > 0 && arrows[i][0].y + SIZE < 0)
                 {
                     arrows[i].RemoveAt(0);
                 }
@@ -143,7 +143,7 @@ namespace Arrowtest2
                 for (int j = 0; j<arrows[i].Count(); j++)
                 {
                     //drawing the arrows
-                    e.Graphics.DrawImage(arrows[i][j].getImage(), arrows[i][j].x, arrows[i][j].y - (SIZE * 2), SIZE, SIZE);
+                    e.Graphics.DrawImage(arrows[i][j].getImage(), arrows[i][j].x, arrows[i][j].y, SIZE, SIZE);
                 }
             }
             #endregion
